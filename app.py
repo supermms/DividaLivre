@@ -126,5 +126,8 @@ def hook():
     return "OK", 200
 
 
+app.route('/peido', methods=['GET'])
+    logging.info('peido')
+
 if __name__ == "__main__":
  app.run()
