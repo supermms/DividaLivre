@@ -59,6 +59,7 @@ def webhook():
 
 
 @app.route('/peido', methods=['GET'])
+def peido():
     logging.info('peido')
 
 if __name__ == "__main__":
