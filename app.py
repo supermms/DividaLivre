@@ -58,6 +58,12 @@ def webhook():
     elif request.method == "POST":
         return handle_message(request)
 
+@app.route("/peido", methods="GET")
+def peido():
+    mode = request.args.get("hub.mode")
+    token = request.args.get("hub.verify_token")
+    challenge = request.args.get("hub.challenge")
+    return render_template('index.html', mode=mode, token=token, challenge=challenge)
 
 
 if __name__ == "__main__":
