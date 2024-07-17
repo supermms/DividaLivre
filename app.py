@@ -61,7 +61,7 @@ def webhook():
 
 @app.route('/peido', methods=['GET'])
 def peido():
-    return render_template('index.html' text='Peido')
+    return render_template('index.html', text='Peido')
 
 if __name__ == "__main__":
  app.run()
