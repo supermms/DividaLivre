@@ -18,15 +18,16 @@ VERIFY_TOKEN = "batmanbatman"
 messenger = WhatsApp(os.getenv("TOKEN"),
                      phone_number_id=os.getenv("PHONE_NUMBER_ID"))
 
-
 # Required webhook verifictaion for WhatsApp
 # info on verification request payload:
 # https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
 def verify(request):
+
     # Parse params from the webhook verification request
     mode = request.args.get("hub.mode")
     token = request.args.get("hub.verify_token")
     challenge = request.args.get("hub.challenge")
+
     # Check if a token and mode were sent
     if mode and token:
         # Check the mode and token sent are correct
@@ -50,7 +51,7 @@ def hello_world():
     return render_template('index.html')
 
 # Accepts POST and GET requests at /webhook endpoint
-@app.route("/webhook", methods=["POST", "GET"])
+@app.route("/webhooks", methods=["POST", "GET"])
 def webhook():
     if request.method == "GET":
         return verify(request)
