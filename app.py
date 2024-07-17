@@ -2,7 +2,7 @@ import os
 import logging
 from whatsapp import WhatsApp, Message
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
