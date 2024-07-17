@@ -60,7 +60,7 @@ def webhook():
 
 @app.route("/peido", methods=["GET"])
 def peido():
-#     mode = request.args.get("hub.mode")
+    mode = request.args.get("hub.mode")
 #     token = request.args.get("hub.verify_token")
 #     challenge = request.args.get("hub.challenge")
     return render_template('index.html', mode='mode', token='token', challenge='challenge')
