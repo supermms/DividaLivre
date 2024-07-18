@@ -15,7 +15,7 @@ logging.basicConfig(filename='whatsapplogs.log',
 load_dotenv("./.env")
 
 # Access token for your WhatsApp business account app
-whatsapp_token = os.getenv("WHATSAPP_TOKEN")
+whatsapp_token = os.getenv("TOKEN")
 
 # Verify Token defined when configuring the webhook
 VERIFY_TOKEN = "batmanbatman"
