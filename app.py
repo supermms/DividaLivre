@@ -7,8 +7,8 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 # Logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+logging.basicConfig(filename='whatsapplogs.log', 
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
 )
 
 # Load .env file
