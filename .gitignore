@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+/__pycache__
 *.py[cod]
 *$py.class
 
@@ -15,4 +16,3 @@ venv.bak/
 whatsapplogs.log
 
 flask_session/
-/__pycache__
