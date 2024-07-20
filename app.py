@@ -213,7 +213,7 @@ def adminlogin():
 @admin_required
 def adminpage():
     if request.method == "GET":
-        return render_template('adminpage2.html')
+        return render_template('adminpage.html')
 
 # Rota para processar o formulário
 @app.route('/adicionar_lead', methods=['POST'])
