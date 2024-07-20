@@ -15,3 +15,4 @@ venv.bak/
 whatsapplogs.log
 
 flask_session/
+/__pycache__
