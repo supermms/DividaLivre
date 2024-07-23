@@ -84,9 +84,18 @@ def handle_message(request):
                 message = msg.content
                 name = msg.name
                 logging.info("Message: %s", message)
-                m = Message(instance=messenger, to=mobile,
-                            content="Hello World")
-                m.send()
+                if 'sim' in message.lower():
+                    m = Message(instance=messenger, to=mobile,
+                            content="Que bom! Nosso negócio funciona da seguinte forma.....")
+                    m.send()
+                elif 'quero saber mais' in message.lower():
+                    m = Message(instance=messenger, to=mobile,
+                            content="Que bom! Nosso negócio funciona da seguinte forma.....")
+                    m.send()
+                elif 'não' in message.lower():
+                    m = Message(instance=messenger, to=mobile,
+                            content="Que pena! Fique a vontade para entrar em contato quando precisar!")
+                    m.send()
 
             elif message_type == "interactive":
                 message_response = msg.interactive
@@ -168,15 +177,6 @@ def handle_message(request):
 def hello_world():
     return render_template('index.html')
 
-# Accepts POST and GET requests at /webhook endpoint
-@app.route("/webhooks", methods=["POST", "GET"])
-def webhook():
-    if request.method == "GET":
-        return verify(request)
-    elif request.method == "POST":
-        return handle_message(request)
-
-
 @app.route("/adminlogin", methods=["GET", "POST"])
 def adminlogin():
     """logs admin in"""
@@ -242,16 +242,26 @@ def send_whatsapp_messages():
     # Supondo que você tenha uma função `send_whatsapp_message` que envia uma mensagem via WhatsApp
     for number in phone_numbers:
         try:
-            send_whatsapp_template_message(number)
+            send_whatsapp_template_message(number, 'hello_world')
         except Exception as e:
             print(f"Erro ao enviar mensagem para {number}: {e}")
 
     return jsonify({'status': 'success'}), 200
 
-def send_whatsapp_template_message(phone_number):
+def send_whatsapp_template_message(phone_number, template):
     messenger.send_template(
-        "hello_world", phone_number, components=[], lang="en_US")
+        template, phone_number, components=[], lang="en_US")
     pass
+
+
+# Accepts POST and GET requests at /webhook endpoint
+@app.route("/webhooks", methods=["POST", "GET"])
+def webhook():
+    if request.method == "GET":
+        return verify(request)
+    elif request.method == "POST":
+        return handle_message(request)
+
 
 if __name__ == "__main__":
  app.run()
