@@ -142,8 +142,7 @@ def handle_message(request):
                             content=msg_limpanome)
                     m.send()
                     send_como_funciona_button(messenger, mobile)
-                elif  button_text == 'Como Funciona?':
-                    send_como_funciona_button(messenger, mobile)
+
 
 
             elif message_type == "interactive":
@@ -153,6 +152,9 @@ def handle_message(request):
                 interactive_type = message_response.get("type")
                 message_id = message_response[interactive_type]["id"]
                 message_text = message_response[interactive_type]["title"]
+
+                if message_text == 'Como Funciona?':
+                    send_como_funciona_button(messenger, mobile)
                 logging.info(
                     f"Interactive Message; {message_id}: {message_text}")
 
