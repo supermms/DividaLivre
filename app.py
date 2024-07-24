@@ -39,13 +39,13 @@ messenger = WhatsApp(os.getenv("TOKEN"),
 admin_credentials = json.loads(os.getenv("ADMIN_CREDENTIALS"))
 
 
-def send_como_funciona_button(instance, mobile):
+def send_button_message(instance, mobile, message):
     instance.send_reply_button(
         recipient_id=mobile,
         button={
             "type": "button",
             "body": {
-                "text": msg_limpanome
+                "text": message
             },
             "action": {
                 "buttons": [
@@ -138,10 +138,7 @@ def handle_message(request):
             elif message_type == "button":
                 button_text = data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text']
                 if  button_text == 'Quero saber mais!':
-                    m = Message(instance=messenger, to=mobile,
-                            content=msg_limpanome)
-                    m.send()
-                    send_como_funciona_button(messenger, mobile)
+                    send_como_funciona_button(messenger, mobile, msg_limpanome)
 
 
 
@@ -154,7 +151,7 @@ def handle_message(request):
                 message_text = message_response[interactive_type]["title"]
 
                 if message_text == 'Como Funciona?':
-                    send_como_funciona_button(messenger, mobile)
+                    send_como_funciona_button(messenger, mobile, msg_como_funciona)
                 logging.info(
                     f"Interactive Message; {message_id}: {message_text}")
 
