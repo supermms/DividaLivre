@@ -99,7 +99,7 @@ def handle_message(request):
                     m.send()
 
             elif message_type == "button":
-                if dict_teste['entry'][0]['changes'][0]['value']['messages'][0]['button']['text'] == 'Quero saber mais!':
+                if data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text'] == 'Quero saber mais!':
                     m = Message(instance=messenger, to=mobile,
                             content="O Limpa Nome é um serviço inovador especializado em suspender dívidas, oferecendo uma solução eficaz para quem está enfrentando dificuldades financeiras e precisa de uma oportunidade para recomeçar. Nossa missão é ajudar nossos clientes a recuperar seu poder de compra e sua credibilidade no mercado, permitindo que voltem a sonhar e a planejar seu futuro sem o peso das dívidas. \n Se você está pronto para dar o primeiro passo em direção a uma vida financeira mais saudável e equilibrada, entre em contato conosco e descubra como o Limpa Nome pode ajudar você a suspender suas dívidas e a reconstruir seu futuro.")
                     m.send()
