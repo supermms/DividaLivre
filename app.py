@@ -141,6 +141,7 @@ def handle_message(request):
                     m = Message(instance=messenger, to=mobile,
                             content=msg_limpanome)
                     m.send()
+                    send_como_funciona_button(messenger, mobile)
                 elif  button_text == 'Como Funciona?':
                     send_como_funciona_button(messenger, mobile)
 
