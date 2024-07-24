@@ -200,10 +200,10 @@ def adminlogin():
             session["user_admin"] = True
 
             #Redirects success case
-            return jsonify{'success':True, 'redirect_url': url_for('adminpage')}
+            return jsonify({'success':True, 'redirect_url': url_for('adminpage')})
         # User reached route via GET (as by clicking a link or via redirect)
         else:
-            return jsonify{'success':False, 'error': 'Nome de Usuário ou Senha incorretos.'}
+            return jsonify({'success':False, 'error': 'Nome de Usuário ou Senha incorretos.'})
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
