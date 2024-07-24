@@ -199,11 +199,11 @@ def adminlogin():
             # Remember which user has logged in
             session["user_admin"] = True
 
-            #Redirects user
-            return redirect('/adminpage')
+            #Redirects success case
+            return jsonify{'success':True, 'redirect_url': url_for('adminpage')}
         # User reached route via GET (as by clicking a link or via redirect)
         else:
-            return apology('Wrong username or password')
+            return jsonify{'success':False, 'error': 'Nome de Usuário ou Senha incorretos.'}
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
