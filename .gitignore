@@ -16,3 +16,4 @@ venv.bak/
 whatsapplogs.log
 
 flask_session/
+teste.py
