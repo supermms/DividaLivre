@@ -9,7 +9,8 @@ import database as db
 
 from helpers import apology, login_required, admin_required
 
-msg_como_funciona = "*Como Funciona?* \nNosso processo é simples e transparente: \n*Análise Financeira Completa:* Avaliamos detalhadamente a situação financeira do cliente, identificando todas as dívidas e credores envolvidos. \n*Negociação com Credores:* Atuamos como intermediários na negociação com os credores, buscando acordos que permitam a suspensão temporária das dívidas e a elaboração de um plano de pagamento viável.\n*Suspensão de Dívidas:* Conseguimos a suspensão das dívidas, evitando cobranças e ações judiciais enquanto o cliente se reestrutura financeiramente."
+msg_limpanome = "O Limpa Nome é um serviço inovador especializado em suspender dívidas, oferecendo uma solução eficaz para quem está enfrentando dificuldades financeiras e precisa de uma oportunidade para recomeçar. \nNossa missão é ajudar nossos clientes a recuperar seu poder de compra e sua credibilidade no mercado, permitindo que voltem a sonhar e a planejar seu futuro sem o peso das dívidas. \nSe você está pronto para dar o primeiro passo em direção a uma vida financeira mais saudável e equilibrada, entre em contato conosco e descubra como o Limpa Nome pode ajudar você a suspender suas dívidas e a reconstruir seu futuro."
+msg_como_funciona = "*Como Funciona?* \n\nNosso processo é simples e transparente: \n\n*Análise Financeira Completa:* Avaliamos detalhadamente a situação financeira do cliente, identificando todas as dívidas e credores envolvidos. \n*Negociação com Credores:* Atuamos como intermediários na negociação com os credores, buscando acordos que permitam a suspensão temporária das dívidas e a elaboração de um plano de pagamento viável.\n*Suspensão de Dívidas:* Conseguimos a suspensão das dívidas, evitando cobranças e ações judiciais enquanto o cliente se reestrutura financeiramente."
 
 app = Flask(__name__)
 
@@ -36,6 +37,36 @@ messenger = WhatsApp(os.getenv("TOKEN"),
                      phone_number_id=os.getenv("PHONE_NUMBER_ID"))
 
 admin_credentials = json.loads(os.getenv("ADMIN_CREDENTIALS"))
+
+
+def send_como_funciona_button(instance, mobile):
+    instance.send_reply_button(
+        recipient_id=mobile,
+        button={
+            "type": "button",
+            "body": {
+                "text": msg_limpanome
+            },
+            "action": {
+                "buttons": [
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b1",
+                            "title": "Como Funciona?"
+                        }
+                    },
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b2",
+                            "title": "this is button 2"
+                        }
+                    }
+                ]
+            }
+      },
+    )
 
 
 # Required webhook verifictaion for WhatsApp
@@ -105,10 +136,13 @@ def handle_message(request):
                     m.send()
 
             elif message_type == "button":
-                if data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text'] == 'Quero saber mais!':
+                button_text = data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text']
+                if  button_text == 'Quero saber mais!':
                     m = Message(instance=messenger, to=mobile,
-                            content="O Limpa Nome é um serviço inovador especializado em suspender dívidas, oferecendo uma solução eficaz para quem está enfrentando dificuldades financeiras e precisa de uma oportunidade para recomeçar. \nNossa missão é ajudar nossos clientes a recuperar seu poder de compra e sua credibilidade no mercado, permitindo que voltem a sonhar e a planejar seu futuro sem o peso das dívidas. \nSe você está pronto para dar o primeiro passo em direção a uma vida financeira mais saudável e equilibrada, entre em contato conosco e descubra como o Limpa Nome pode ajudar você a suspender suas dívidas e a reconstruir seu futuro.")
+                            content=)
                     m.send()
+                    send_como_funciona_button(messenger, mobile)
+                elif  button_text == 'Como Funciona?':
                 
 
 
