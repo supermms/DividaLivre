@@ -138,7 +138,7 @@ def handle_message(request):
             elif message_type == "button":
                 button_text = data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text']
                 if  button_text == 'Quero saber mais!':
-                    send_como_funciona_button(messenger, mobile, msg_limpanome)
+                    send_button_message(messenger, mobile, msg_limpanome)
 
 
 
@@ -151,7 +151,7 @@ def handle_message(request):
                 message_text = message_response[interactive_type]["title"]
 
                 if message_text == 'Como Funciona?':
-                    send_como_funciona_button(messenger, mobile, msg_como_funciona)
+                    send_button_message(messenger, mobile, msg_como_funciona)
                 logging.info(
                     f"Interactive Message; {message_id}: {message_text}")
 
