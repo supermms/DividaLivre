@@ -101,7 +101,7 @@ def handle_message(request):
             elif message_type == "button":
                 message_response = type(data)
                 logging.info(f'tipo da variavel data: {type(data)}')
-                logging.info(f'msg.data: {msg.data}')
+                logging.info(f'msg.data: {msg.data['entry']}')
 
 
             elif message_type == "interactive":
