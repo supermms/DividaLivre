@@ -99,13 +99,9 @@ def handle_message(request):
                     m.send()
 
             elif message_type == "button":
-                if message_response is None:
-                    return Response(status=400)
-                button_type = message_response.get("type")
-                message_id = message_response[interactive_type]["id"]
-                message_text = message_response[interactive_type]["title"]
-                logging.info(
-                    f"Interactive Message; {message_id}: {message_text}")
+                message_response = type(data)
+                logging.info(f'tipo da variavel data: {type(data)}')
+                logging.info(f'msg.data: {msg.data}')
 
 
             elif message_type == "interactive":
