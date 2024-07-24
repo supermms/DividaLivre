@@ -73,6 +73,7 @@ def handle_message(request):
     if changed_field == "messages":
         new_message = messenger.is_message(data)
         if new_message:
+            logging.info("%s", new_message)
             msg = Message(instance=messenger, data=data)
             mobile = msg.sender
             name = msg.name
@@ -98,7 +99,6 @@ def handle_message(request):
                     m.send()
 
             elif message_type == "button":
-                message_response = msg.button
                 if message_response is None:
                     return Response(status=400)
                 button_type = message_response.get("type")
