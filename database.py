@@ -12,11 +12,11 @@ dynamodb = boto3.resource(
     'dynamodb',
     aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
     aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-    region_name='sa-east-1'
+    region_name='us-east-1'
 )
 
 # Referenciar a tabela
-leads_table = dynamodb.Table('SerasaLivre_NovosClientes')
+leads_table = dynamodb.Table('DividaLivre_NovosClientes')
 
 
 def verificar_lead_existente(telefone):

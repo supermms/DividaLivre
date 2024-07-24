@@ -97,6 +97,17 @@ def handle_message(request):
                             content="Que pena! Fique a vontade para entrar em contato quando precisar!")
                     m.send()
 
+            elif message_type == "button":
+                message_response = msg.button
+                if message_response is None:
+                    return Response(status=400)
+                button_type = message_response.get("type")
+                message_id = message_response[interactive_type]["id"]
+                message_text = message_response[interactive_type]["title"]
+                logging.info(
+                    f"Interactive Message; {message_id}: {message_text}")
+
+
             elif message_type == "interactive":
                 message_response = msg.interactive
                 if message_response is None:
@@ -242,7 +253,7 @@ def send_whatsapp_messages():
     # Supondo que você tenha uma função `send_whatsapp_message` que envia uma mensagem via WhatsApp
     for number in phone_numbers:
         try:
-            send_whatsapp_template_message(number, 'hello_world')
+            send_whatsapp_template_message(number, 'apresentacao_limpanome')
         except Exception as e:
             print(f"Erro ao enviar mensagem para {number}: {e}")
 
@@ -250,7 +261,7 @@ def send_whatsapp_messages():
 
 def send_whatsapp_template_message(phone_number, template):
     messenger.send_template(
-        template, phone_number, components=[], lang="en_US")
+        template, phone_number, components=[], lang="pt_BR")
     pass
 
 
