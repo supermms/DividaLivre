@@ -39,13 +39,13 @@ messenger = WhatsApp(os.getenv("TOKEN"),
 admin_credentials = json.loads(os.getenv("ADMIN_CREDENTIALS"))
 
 
-def send_button_message(instance, mobile, message):
+def send_button_message_como_funciona(instance, mobile):
     instance.send_reply_button(
         recipient_id=mobile,
         button={
             "type": "button",
             "body": {
-                "text": message
+                "text": msg_como_funciona
             },
             "action": {
                 "buttons": [
@@ -60,7 +60,36 @@ def send_button_message(instance, mobile, message):
                         "type": "reply",
                         "reply": {
                             "id": "b2",
-                            "title": "this is button 2"
+                            "title": "Falar com Consultor"
+                        }
+                    }
+                ]
+            }
+      },
+    )
+
+def send_button_message_quero_saber(instance, mobile):
+    instance.send_reply_button(
+        recipient_id=mobile,
+        button={
+            "type": "button",
+            "body": {
+                "text": msg_limpanome
+            },
+            "action": {
+                "buttons": [
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b1",
+                            "title": "Como Funciona?"
+                        }
+                    },
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b2",
+                            "title": "Falar com Consultor"
                         }
                     }
                 ]
@@ -138,8 +167,10 @@ def handle_message(request):
             elif message_type == "button":
                 button_text = data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text']
                 if  button_text == 'Quero saber mais!':
-                    send_button_message(messenger, mobile, msg_limpanome)
-
+                    send_button_message_quero_saber(messenger, mobile)
+                if  button_text == 'Falar com Consultor':
+                    m = Message(instance=messenger, to=mobile,
+                            content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\n Atenciosamente,\nEquipe *DívidaLivre*")
 
 
             elif message_type == "interactive":
@@ -151,7 +182,7 @@ def handle_message(request):
                 message_text = message_response[interactive_type]["title"]
 
                 if message_text == 'Como Funciona?':
-                    send_button_message(messenger, mobile, msg_como_funciona)
+                    send_button_message_como_funciona(messenger, mobile)
                 logging.info(
                     f"Interactive Message; {message_id}: {message_text}")
 
