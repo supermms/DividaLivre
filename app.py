@@ -168,10 +168,7 @@ def handle_message(request):
                 button_text = data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text']
                 if  button_text == 'Quero saber mais!':
                     send_button_message_quero_saber(messenger, mobile)
-                if  button_text == 'Falar com Consultor':
-                    m = Message(instance=messenger, to=mobile,
-                            content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\n Atenciosamente,\nEquipe *DívidaLivre*")
-
+                
 
             elif message_type == "interactive":
                 message_response = msg.interactive
@@ -185,6 +182,10 @@ def handle_message(request):
                     send_button_message_como_funciona(messenger, mobile)
                 logging.info(
                     f"Interactive Message; {message_id}: {message_text}")
+                if  button_text == 'Falar com Consultor':
+                    m = Message(instance=messenger, to=mobile,
+                            content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\n Atenciosamente,\nEquipe *DívidaLivre*")
+
 
             elif message_type == "location":
                 message_location = msg.location
