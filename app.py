@@ -185,7 +185,7 @@ def handle_message(request):
                 elif  message_text == 'Falar com Consultor':
                     m = Message(instance=messenger, to=mobile,
                             content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\n Atenciosamente,\nEquipe *DívidaLivre*")
-                
+                    m.send()
 
             elif message_type == "location":
                 message_location = msg.location
