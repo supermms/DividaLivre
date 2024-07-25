@@ -184,7 +184,7 @@ def handle_message(request):
                     send_button_message_como_funciona(messenger, mobile)
                 elif  message_text == 'Falar com Consultor':
                     m = Message(instance=messenger, to=mobile,
-                            content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\n Atenciosamente,\nEquipe *DívidaLivre*")
+                            content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\nAtenciosamente,\nEquipe *DívidaLivre*")
                     m.send()
 
             elif message_type == "location":
