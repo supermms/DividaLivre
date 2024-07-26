@@ -24,6 +24,7 @@ DívidaLivre é uma aplicação web desenvolvida em Flask que gerencia leads e e
 .
 ├── app.py                  # Arquivo principal da aplicação Flask
 ├── database.py             # Funções de acesso ao DynamoDB
+├── helpers.py             # Funções auxiliares, como @admin_required
 ├── templates/
 │   ├── layout.html         # Template base
 │   ├── index.html          # Página inicial da aplicação. Uma landing page mostrando sobre a empresa
