@@ -19,7 +19,7 @@ A aplicação também realiza o atendimento automático do Whatsapp por meio de 
 - **Frontend:** HTML, CSS, JavaScript, Bootstrap
 - **Banco de Dados:** Amazon DynamoDB
 - **Integração:** API do WhatsApp
-- **Hospedagem:"" AWS - EC2
+- **Hospedagem:** AWS - EC2
 
 ## Estrutura do Projeto
 
