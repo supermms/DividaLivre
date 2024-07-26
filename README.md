@@ -4,6 +4,8 @@
 
 DívidaLivre é uma aplicação web desenvolvida em Flask que gerencia leads e envia mensagens comerciais via WhatsApp. A aplicação permite que os usuários adicionem novos leads, vejam a lista de leads e enviem mensagens automaticamente para leads específicos usando a API do WhatsApp. Os dados dos leads são armazenados no DynamoDB.
 
+A aplicação também realiza o atendimento automático do Whatsapp por meio de mensagens interativas.
+
 ## Funcionalidades
 
 - **Adição de Leads:** Formulário para adicionar novos leads com nome e telefone.
