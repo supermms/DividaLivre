@@ -149,11 +149,11 @@ def handle_message(request):
                 logging.info("Message: %s", message)
                 if 'sim' in message.lower():
                     m = Message(instance=messenger, to=mobile,
-                            content="Que bom! Nosso negócio funciona da seguinte forma.....")
+                            content=msg_como_funciona)
                     m.send()
                 elif 'quero saber mais' in message.lower():
                     m = Message(instance=messenger, to=mobile,
-                            content="Que bom! Nosso negócio funciona da seguinte forma.....")
+                            content=msg_como_funciona)
                     m.send()
                 elif 'não' in message.lower():
                     m = Message(instance=messenger, to=mobile,
@@ -186,6 +186,8 @@ def handle_message(request):
                     m = Message(instance=messenger, to=mobile,
                             content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\nAtenciosamente,\nEquipe *DívidaLivre*")
                     m.send()
+                    update_lead_status(mobile, 'esperando')
+
 
             elif message_type == "location":
                 message_location = msg.location
@@ -242,6 +244,12 @@ def handle_message(request):
             else:
                 logging.info(f"{mobile} sent {message_type} ")
                 logging.info(data)
+
+            
+            if check_lead_status(mobile) == 'novo':
+                update_lead_status(mobile, 'contatado')
+
+
         else:
             delivery = messenger.get_delivery(data)
             if delivery:
@@ -310,9 +318,15 @@ def adicionar_lead():
 
 # Rota para obter leads em formato JSON
 @app.route('/get_leads', methods=['GET'])
-def get_leads():
-    leads = db.get_new_leads()
+def get_new_leads():
+    leads = db.get_all_leads()
     return jsonify(leads)
+
+@app.route('/get_all_leads', methods=['GET'])
+def get_all_leads():
+    leads = db.get_all_leads()
+    return jsonify(leads)
+
 
 @app.route('/send_whatsapp_messages', methods=['POST'])
 def send_whatsapp_messages():
@@ -323,6 +337,9 @@ def send_whatsapp_messages():
     for number in phone_numbers:
         try:
             send_whatsapp_template_message(number, 'apresentacao_limpanome')
+            
+
+
         except Exception as e:
             print(f"Erro ao enviar mensagem para {number}: {e}")
 

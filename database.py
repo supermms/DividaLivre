@@ -15,8 +15,9 @@ dynamodb = boto3.resource(
     region_name='us-east-1'
 )
 
-# Referenciar a tabela
+# Referenciar as tabelas
 leads_table = dynamodb.Table('DividaLivre_NovosClientes')
+
 
 
 def verificar_lead_existente(telefone):
@@ -70,4 +71,52 @@ def get_new_leads():
     except ClientError as e:
         print(f"Erro ao obter leads: {e}")
         return []
+
+def get_all_leads():
+    try:
+        response = leads_table.scan()
+        items = response.get('Items', [])
+
+        # Verificar se há mais páginas de resultados
+        while 'LastEvaluatedKey' in response:
+            response = leads_table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+            items.extend(response.get('Items', []))
+
+        return items
+    except ClientError as e:
+        print(f"Erro ao obter leads: {e}")
+        return []
+
+
+def check_lead_status(phone):
+    try:
+        # Buscar o item com base na chave primária (telefone)
+        response = leads_table.get_item(Key={'telefone': telefone})
+        
+        # Verificar se o item existe na tabela
+        if 'Item' in response:
+            return response['Item'].get('lead_status', None)
+        else:
+            print(f"Nenhum lead encontrado com o telefone {telefone}.")
+            return None
+    except ClientError as e:
+        print(f"Erro ao buscar o lead: {e.response['Error']['Message']}")
+        return None
+
+
+def update_lead_status(phone, lead_status):
+    try:
+        response = leads_table.update_item(Key=phone,
+        UpdateExpression="SET lead_status = :new_status", 
+        ExpressionAttributeValues={
+            ':new_status':lead_status
+            },
+        ReturnValues="UPDATED_NEW"
+        )
+        return response
+    except ClientError as e:
+        print(f"Erro ao atualizar o status do lead: {e.response['Error']['Message']}")
+        return None
+    
+
 

@@ -52,10 +52,12 @@
         <div class="table-container text-center">
             <div class="table-header">
                 <h2>Lista de Leads</h2>
-                <button id="refresh-btn" class="btn btn-secondary">Atualizar</button>
+                <button id="refresh-btn-newleads" class="btn btn-secondary">Atualizar</button>
             </div>
+        
+            <!-- Tabela para novos leads -->
             <div class="table-responsive">
-                <table id="leads-table" class="table">
+                <table id="new-leads-table" class="table">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -65,12 +67,63 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Data will be inserted here by JavaScript -->
+                        <!-- Dados serão inseridos aqui pelo JavaScript -->
                     </tbody>
                 </table>
             </div>
+
             <button id="send-whatsapp-btn" class="btn btn-primary">Enviar Mensagem no WhatsApp</button>
         </div>
+    </section>
+    <section class="container">
+        <div class="table-container text-center">
+            <div class="table-header">
+                <h2>Leads Contatados</h2>
+            </div>
+            <!-- Tabela para leads contatados -->
+            <div class="table-responsive">
+                <table id="contacted-leads-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>CNPJ</th>
+                            <th>Data de Criação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão inseridos aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="table-container text-center">
+            <div class="table-header">
+                <h2>Leads Esperando Contato</h2>
+            </div>
+            <!-- Tabela para leads esperando contato -->
+            <div class="table-responsive">
+                <table id="waiting-leads-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>CNPJ</th>
+                            <th>Data de Criação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão inseridos aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+
+
     </section>
 {% endblock %}
 
@@ -92,11 +145,19 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             function fetchLeads() {
-                fetch('/get_leads')
+                fetch('/get_all_leads')
                     .then(response => response.json())
                     .then(data => {
-                        const tableBody = document.querySelector('#leads-table tbody');
-                        tableBody.innerHTML = '';
+                        const newLeadsTableBody = document.querySelector('#new-leads-table tbody');
+                        const contactedLeadsTableBody = document.querySelector('#contacted-leads-table tbody');
+                        const waitingLeadsTableBody = document.querySelector('#waiting-leads-table tbody');
+
+                        // Limpar as tabelas antes de inserir novos dados
+                        newLeadsTableBody.innerHTML = '';
+                        contactedLeadsTableBody.innerHTML = '';
+                        waitingLeadsTableBody.innerHTML = '';
+
+                        // Iterar sobre os leads e preenchê-los nas tabelas apropriadas
                         data.forEach(lead => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
@@ -105,7 +166,15 @@
                                 <td>${lead.cnpj || ''}</td>
                                 <td>${lead.data_criacao || ''}</td>
                             `;
-                            tableBody.appendChild(row);
+
+                            // Verifica o status do lead e o insere na tabela correspondente
+                            if (lead.lead_status === 'novo') {
+                                newLeadsTableBody.appendChild(row);
+                            } else if (lead.lead_status === 'contatado') {
+                                contactedLeadsTableBody.appendChild(row);
+                            } else if (lead.lead_status === 'esperando') {
+                                waitingLeadsTableBody.appendChild(row);
+                            }
                         });
                     })
                     .catch(error => console.error('Erro ao buscar leads:', error));
@@ -129,11 +198,11 @@
                         alert('Erro ao enviar mensagens.');
                     });
             }
-            
-        
-            document.getElementById('refresh-btn').addEventListener('click', fetchLeads);
+
+            // Corrigido o ID do botão de atualizar
+            document.getElementById('refresh-btn-newleads').addEventListener('click', fetchLeads);
             document.getElementById('send-whatsapp-btn').addEventListener('click', sendWhatsAppMessages);
-        
+
             // Fetch leads on page load
             fetchLeads();
         });
