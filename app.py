@@ -65,7 +65,7 @@ def send_button_message_visitar_website(instance, mobile):
                 ]
             }
       },
-    
+    )
 
 def send_button_message_lead_contatou_primeiro(instance, mobile):
     instance.send_reply_button(
