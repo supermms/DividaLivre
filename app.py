@@ -247,7 +247,7 @@ def handle_message(request):
 
             
             if check_lead_status(mobile) == 'novo':
-                update_lead_status(mobile, 'contatado')
+                db.update_lead_status(mobile, 'contatado')
 
 
         else:
@@ -337,7 +337,7 @@ def send_whatsapp_messages():
     for number in phone_numbers:
         try:
             send_whatsapp_template_message(number, 'apresentacao_limpanome')
-            update_lead_status(number, 'contatado')
+            db.update_lead_status(number, 'contatado')
             
 
 
