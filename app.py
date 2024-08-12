@@ -210,17 +210,13 @@ def handle_message(request):
                             content=msg_como_funciona)
                     m.send()
                 elif 'quero saber mais' in message.lower():
-                    m = Message(instance=messenger, to=mobile,
-                            content=msg_como_funciona)
-                    m.send()
+                    send_button_message_quero_saber(messenger, mobile)
                 elif 'não' in message.lower():
                     m = Message(instance=messenger, to=mobile,
                             content="Que pena! Fique a vontade para entrar em contato quando precisar!")
                     m.send()
                 elif 'como funciona' in message.lower():
-                    m = Message(instance=messenger, to=mobile,
-                            content=msg_como_funciona)
-                    m.send()
+                    send_button_message_como_funciona(messenger, mobile)
 
             elif message_type == "button":
                 button_text = data['entry'][0]['changes'][0]['value']['messages'][0]['button']['text']
@@ -306,7 +302,7 @@ def handle_message(request):
 
             
             if not db.verificar_lead_existente(mobile):
-                db.adicionar_novo_lead(nome='sem_nome', telefone=mobile, lead_status='iniciou_contato')
+                db.adicionar_novo_lead(nome=name, telefone=mobile, lead_status='iniciou_contato')
                 send_button_message_lead_contatou_primeiro(messenger, mobile)
 
 
