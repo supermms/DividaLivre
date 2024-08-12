@@ -91,7 +91,7 @@ def get_all_leads():
 def check_lead_status(phone):
     try:
         # Buscar o item com base na chave primária (telefone)
-        response = leads_table.get_item(Key={'telefone': telefone})
+        response = leads_table.get_item(Key={'telefone': phone})
         
         # Verificar se o item existe na tabela
         if 'Item' in response:
@@ -106,7 +106,7 @@ def check_lead_status(phone):
 
 def update_lead_status(phone, lead_status):
     try:
-        response = leads_table.update_item(Key=phone,
+        response = leads_table.update_item(Key={'telefone':phone},
         UpdateExpression="SET lead_status = :new_status", 
         ExpressionAttributeValues={
             ':new_status':lead_status
