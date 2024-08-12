@@ -337,6 +337,7 @@ def send_whatsapp_messages():
     for number in phone_numbers:
         try:
             send_whatsapp_template_message(number, 'apresentacao_limpanome')
+            update_lead_status(number, 'contatado')
             
 
 
