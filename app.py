@@ -56,7 +56,7 @@ def send_button_message_visitar_website(instance, mobile):
                         }
                     },
                     {
-                        "type": "link",
+                        "type": "reply",
                         "reply": {
                             "id": "b2",
                             "title": "Falar com Consultor"
@@ -85,7 +85,7 @@ def send_button_message_lead_contatou_primeiro(instance, mobile):
                         }
                     },
                     {
-                        "type": "link",
+                        "type": "reply",
                         "reply": {
                             "id": "b2",
                             "title": "Visitar Website"
