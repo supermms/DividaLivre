@@ -337,8 +337,12 @@ def send_whatsapp_messages():
     for number in phone_numbers:
         try:
             send_whatsapp_template_message(number, 'apresentacao_limpanome')
+
             if db.check_lead_status(number) == 'novo':
                 db.update_lead_status(number, 'contatado')
+                log.info(f"updated lead {number} status to 'contatado'")
+            else:
+                log.info(f"didnt update lead {number} status")
             
 
 
