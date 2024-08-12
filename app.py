@@ -247,7 +247,7 @@ def handle_message(request):
 
             
             if not db.verificar_lead_existente(mobile):
-                db.adicionar_novo_lead(mobile, 'iniciou_contato')
+                db.adicionar_novo_lead(nome='sem_nome', telefone=mobile, lead_status='iniciou_contato')
 
 
         else:

@@ -29,7 +29,7 @@ def verificar_lead_existente(telefone):
 
 
 # Adicionar um novo lead com atributos adicionais
-def adicionar_novo_lead(nome, telefone, cnpj=None):
+def adicionar_novo_lead(nome, telefone, cnpj=None, lead_status='novo'):
     """insere um novo item na tabela de novos clientes"""
     if verificar_lead_existente(telefone):
         print(f"Lead com telefone {telefone} já existe.")
@@ -41,7 +41,7 @@ def adicionar_novo_lead(nome, telefone, cnpj=None):
             "telefone": telefone,
             "data_criacao": data_criacao,
             "nome": nome,
-            "lead_status": "novo",
+            "lead_status": lead_status,
             "CNPJ": cnpj
         }
     else:
@@ -49,7 +49,7 @@ def adicionar_novo_lead(nome, telefone, cnpj=None):
             "telefone": telefone,
             "data_criacao": data_criacao,
             "nome": nome,
-            "lead_status": "novo"
+            "lead_status": lead_status
         }
 
     try:

@@ -196,6 +196,8 @@
                                 newLeadsTableBody.appendChild(row);
                             } else if (lead.lead_status === 'contatado') {
                                 contactedLeadsTableBody.appendChild(row);
+                            } else if (lead.lead_status === 'iniciou_contato') {
+                                contactedfirstLeadsTableBody.appendChild(row);
                             } else if (lead.lead_status === 'esperando') {
                                 waitingLeadsTableBody.appendChild(row);
                             }
