@@ -38,6 +38,64 @@ messenger = WhatsApp(os.getenv("TOKEN"),
 
 admin_credentials = json.loads(os.getenv("ADMIN_CREDENTIALS"))
 
+def send_button_message_visitar_website(instance, mobile):
+    instance.send_reply_button(
+        recipient_id=mobile,
+        button={
+            "type": "button",
+            "body": {
+                "text": "Nosso website é: \n\n https://dividalivre.shop/ \n\n Nele você encontra diversas informações importantes."
+            },
+            "action": {
+                "buttons": [
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b1",
+                            "title": "Como Funciona?"
+                        }
+                    },
+                    {
+                        "type": "link",
+                        "reply": {
+                            "id": "b2",
+                            "title": "Falar com Consultor"
+                        }
+                    }
+                ]
+            }
+      },
+    
+
+def send_button_message_lead_contatou_primeiro(instance, mobile):
+    instance.send_reply_button(
+        recipient_id=mobile,
+        button={
+            "type": "button",
+            "body": {
+                "text": "Olá, obrigado por contatar o *DívidaLivre*!\n\n Somos uma empresa especializada em suspensão de dívidas, oferecendo uma solução eficaz para quem está enfrentando dificuldades financeiras e precisa de uma oportunidade para recomeçar. \n\nNossa missão é ajudar nossos clientes a recuperar seu poder de compra e sua credibilidade no mercado, permitindo que voltem a sonhar e a planejar seu futuro sem o peso das dívidas. \n\nSe você está pronto para dar o primeiro passo em direção a uma vida financeira mais saudável e equilibrada, entre em contato conosco e descubra como o Limpa Nome pode ajudar você a suspender suas dívidas e a reconstruir seu futuro."
+            },
+            "action": {
+                "buttons": [
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b1",
+                            "title": "Como Funciona?"
+                        }
+                    },
+                    {
+                        "type": "link",
+                        "reply": {
+                            "id": "b2",
+                            "title": "Visitar Website"
+                        }
+                    }
+                ]
+            }
+      },
+    )
+
 
 def send_button_message_como_funciona(instance, mobile):
     instance.send_reply_button(
@@ -53,7 +111,7 @@ def send_button_message_como_funciona(instance, mobile):
                         "type": "reply",
                         "reply": {
                             "id": "b1",
-                            "title": "Como Funciona?"
+                            "title": "Visitar Website"
                         }
                     },
                     {
@@ -187,7 +245,8 @@ def handle_message(request):
                             content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\nAtenciosamente,\nEquipe *DívidaLivre*")
                     m.send()
                     db.update_lead_status(mobile, 'esperando')
-
+                elif  message_text == 'Visitar Website':
+                    send_button_message_visitar_website(messenger, mobile)
 
             elif message_type == "location":
                 message_location = msg.location
@@ -248,6 +307,8 @@ def handle_message(request):
             
             if not db.verificar_lead_existente(mobile):
                 db.adicionar_novo_lead(nome='sem_nome', telefone=mobile, lead_status='iniciou_contato')
+                send_button_message_lead_contatou_primeiro(messenger, mobile)
+
 
 
         else:
