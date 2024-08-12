@@ -246,8 +246,8 @@ def handle_message(request):
                 logging.info(data)
 
             
-            if db.check_lead_status(mobile) == 'novo':
-                db.update_lead_status(mobile, 'contatado')
+            if not db.verificar_lead_existente(mobile):
+                db.adicionar_novo_lead(mobile, 'iniciou_contato')
 
 
         else:

@@ -102,6 +102,30 @@
     <section class="container">
         <div class="table-container text-center">
             <div class="table-header">
+                <h2>Leads que Iniciaram Contato</h2>
+            </div>
+            <!-- Tabela para leads esperando contato -->
+            <div class="table-responsive">
+                <table id="contacted_first_leads-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>CNPJ</th>
+                            <th>Data de Criação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão inseridos aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="table-container text-center">
+            <div class="table-header">
                 <h2>Leads Esperando Atendimento</h2>
             </div>
             <!-- Tabela para leads esperando contato -->
@@ -148,11 +172,13 @@
                     .then(data => {
                         const newLeadsTableBody = document.querySelector('#new-leads-table tbody');
                         const contactedLeadsTableBody = document.querySelector('#contacted-leads-table tbody');
+                        const contactedfirstLeadsTableBody = document.querySelector('#contacted_first_leads-table tbody');
                         const waitingLeadsTableBody = document.querySelector('#waiting-leads-table tbody');
 
                         // Limpar as tabelas antes de inserir novos dados
                         newLeadsTableBody.innerHTML = '';
                         contactedLeadsTableBody.innerHTML = '';
+                        contactedfirstLeadsTableBody.innerHTML = '';
                         waitingLeadsTableBody.innerHTML = '';
 
                         // Iterar sobre os leads e preenchê-los nas tabelas apropriadas
