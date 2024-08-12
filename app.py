@@ -186,7 +186,7 @@ def handle_message(request):
                     m = Message(instance=messenger, to=mobile,
                             content= "Perfeito! Em breve um dos nossos consultores irá entrar em contato. \n\nAtenciosamente,\nEquipe *DívidaLivre*")
                     m.send()
-                    update_lead_status(mobile, 'esperando')
+                    db.update_lead_status(mobile, 'esperando')
 
 
             elif message_type == "location":
@@ -246,7 +246,7 @@ def handle_message(request):
                 logging.info(data)
 
             
-            if check_lead_status(mobile) == 'novo':
+            if db.check_lead_status(mobile) == 'novo':
                 db.update_lead_status(mobile, 'contatado')
 
 
