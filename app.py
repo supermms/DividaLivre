@@ -91,6 +91,13 @@ def send_button_message_lead_contatou_primeiro(instance, mobile):
                             "title": "Visitar Website"
                         }
                     }
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "b3",
+                            "title": "Falar com Consultor"
+                        }
+                    }
                 ]
             }
       },
